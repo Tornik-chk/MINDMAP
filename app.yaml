@@ -1,0 +1,3 @@
+runtime: nodejs20
+env_variables:
+  OPENROUTER_API_KEY: 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"
