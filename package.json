@@ -8,7 +8,6 @@
   "name": "gdg_hackathon",
   "version": "1.0.0",
   "main": "out2json.js",
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
