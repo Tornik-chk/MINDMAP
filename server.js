@@ -1,6 +1,4 @@
-require("dotenv").config({
-  path: "C:\\Users\\tornike\\OneDrive\\დოკუმენტები\\GDG_Hackathon\\key.env",
-});
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const fetch = require("node-fetch");
@@ -124,6 +122,11 @@ app.get("/api/roadmap", async (req, res) => {
 
 /** Start the server **/
 const PORT = process.env.PORT || 3000;
+
+app.get("/", (req, res) => {
+  res.send("Server is running!");
+});
+
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
