@@ -13,7 +13,7 @@ const API_KEY = process.env.OPENROUTER_API_KEY; // we set up the API key from .n
 // Fetch roadmap based on input and depth
 async function returnJSON(input, depth) {
   const learningResources = `Do what I tell you exactly. I want to build tech ${input}. Provide me ${depth} topics and make them as short as possible that I need to learn with appropriate resources in an EXACT format. Don't add anything else (not even code). Format from the easiest to the hardest:
-      Topic,resource(only the link) one topic is one new line. don't add anything else other than what I told you, ONLY TOPIC THEN COMMA THEN RESOURCE.`;
+      Topic,resource(only the link) one topic is one new line. don't add anything else other than what I told you, ONLY TOPIC THEN COMMA THEN RESOURCE,  DO NOT NUMBER IT.`;
 
   try {
     const response = await fetchWithTimeout(
