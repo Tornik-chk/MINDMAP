@@ -1,4 +1,4 @@
-require("dotenv").config();
+require("dotenv").config(); //hardpath is not specified, API key is taken from .nev file which is in pur project root
 const express = require("express");
 const cors = require("cors");
 const fetch = require("node-fetch");
@@ -8,7 +8,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const API_KEY = process.env.OPENROUTER_API_KEY; // Ensure API key is set properly
+const API_KEY = process.env.OPENROUTER_API_KEY; // we set up the API key from .nev file
 
 // Fetch roadmap based on input and depth
 async function returnJSON(input, depth) {
@@ -29,18 +29,18 @@ async function returnJSON(input, depth) {
           messages: [{ role: "user", content: learningResources }],
         }),
       },
-      30000
+      30000 // we set timer for 30seconds, so it wont run indefinitly
     );
 
-    console.log(response.status); // Log status code for debugging
-
-    // Log raw response text
+    //console logs I used for debugging
+    console.log(response.status);
     const rawText = await response.text();
     console.log(rawText);
 
     // Parse the raw response
     const data = JSON.parse(rawText);
 
+    // now we validate our API response
     if (!data.choices || !data.choices.length || !data.choices[0].message) {
       throw new Error("Invalid API response format");
     }
@@ -52,11 +52,8 @@ async function returnJSON(input, depth) {
   }
 }
 
-// Rest of the code...
+// Converts API string response into JSON format.
 
-/**
- * Converts API string response into JSON format.
- */
 function parseInputAndSaveJSON(inputString) {
   if (!inputString || typeof inputString !== "string") {
     return { error: "Invalid input data format" };
@@ -76,9 +73,8 @@ function parseInputAndSaveJSON(inputString) {
     .filter((item) => item !== null);
 }
 
-/**
- * Custom wrapper for fetch with a timeout.
- */
+// Custom wrapper for fetch with a timeout.
+
 function fetchWithTimeout(url, options, timeout) {
   return new Promise((resolve, reject) => {
     const timer = setTimeout(
@@ -89,13 +85,13 @@ function fetchWithTimeout(url, options, timeout) {
     fetch(url, options)
       .then(resolve)
       .catch(reject)
-      .finally(() => clearTimeout(timer)); // Clear timeout once the request finishes
+      .finally(() => clearTimeout(timer)); // We clear timeout once the request finishes
   });
 }
 
 app.get("/api/roadmap", async (req, res) => {
   try {
-    const { input, depth } = req.query; // Get query parameters
+    const { input, depth } = req.query; // Now we just take query parameters
 
     if (!input || !depth) {
       return res
@@ -120,13 +116,11 @@ app.get("/api/roadmap", async (req, res) => {
   }
 });
 
-/** Start the server **/
-const PORT = process.env.PORT || 3000;
-
 app.get("/", (req, res) => {
   res.send("Server is running!");
 });
 
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
+  console.log(`🚀 Server running on port ${PORT}`);
 });
