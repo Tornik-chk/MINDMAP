@@ -29,7 +29,7 @@ async function returnJSON(input, depth) {
           messages: [{ role: "user", content: learningResources }],
         }),
       },
-      30000 // we set timer for 30seconds, so it wont run indefinitly
+      60000 // we set timer for 30seconds, so it wont run indefinitly
     );
 
     //console logs I used for debugging
